@@ -6,7 +6,7 @@ Public repository for Group 6’s project at the 2025 INSA Summer Camp. Includes
 ## 👥 Team
 - Meheretabe Abayneh  
 - Eyob W/Tensay  
-- Miftah Ebrahim *(Leader)*  
+- Miftah Ebrahim(team representative)  
 - Musab Gemil
 
 ## 📁 Structure
@@ -21,7 +21,7 @@ Public repository for Group 6’s project at the 2025 INSA Summer Camp. Includes
 - Provide mentors with full access
 
 ## 🔗 Access
-**Public Repo:** [https://github.com/your-username/insa-group6-summercamp-project](https://github.com/your-username/insa-group6-summercamp-project)
+**Public Repo:** [https://github.com/Miftahudin7/insa-group6-summercamp-project](https://github.com/Miftahudin7/insa-group6-summercamp-project)
 
 ## 📩 Contact
 **Miftah Ebrahim** – [miftahh.dev@gmail.com]
