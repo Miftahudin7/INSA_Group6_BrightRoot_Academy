@@ -20,8 +20,8 @@ This web app is built for Ethiopian Grade 12 (EUEE) students to improve their st
 🧰 Tech Stack
 
 - Frontend: React.js + TailwindCSS  
-- Backend: Django + Django REST Framework  
-- AI Layer: OpenAI GPT-4 / LangChain /RAG/ Hugging Face Transformers  
+- Backend: Node.js/Express
+- AI Layer: OpenAI GPT-4 / LangChain /RAG/n8n/ Hugging Face Transformers  
 - PDF Processing: PyMuPDF / pdfplumber  
 - **Auth**: Token-based authentication (JWT or sessions)
 
