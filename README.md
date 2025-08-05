@@ -1,45 +1,80 @@
+# 🎓 EUEE Study Companion: AI-Powered Learning Platform for Ethiopian High School Students
 
-📚 AI-Powered Study Companion – EUEE Focused
+> A student-centric platform that provides structured access to curriculum-based learning resources and past national exam papers, designed to improve the EUEE pass rate through focused, accessible, and AI-enhanced revision tools.
 
-🧠 Project Overview
+---
 
-This web app is built for Ethiopian Grade 12 (EUEE) students to improve their study experience using AI. It allows students to:
+## 📌 Purpose
 
-- Take and organize study notes
-- Upload lecture files (text or PDF)
-- Get AI-generated summaries, flashcards, and quizzes
-- Ask a context-aware AI tutor questions about their study materials
+Only **2–5%** of Ethiopian students successfully pass the **Ethiopian University Entrance Exam (EUEE)**. This project exists to **solve that problem** by offering:
+- ✅ Centralized access to **Grade 9–12 textbooks and reference materials**
+- ✅ Categorized **EUEE past 10-year exam papers**
+- ✅ A clean, searchable, and user-friendly interface
+- ✅ Future potential to scale into a fully AI-supported learning system
 
- 👥 Team
+---
 
-- Mifta Yibrahim (Team Rep) – [miftahh.dev@gmail.com]  
-- Meheretabe Abayneh  
-- Abdurahman Kero  
-- Musab Gemil  
+## 🚀 Key Features
+| Feature                         | Description                                                                                     |
+|---------------------------------|-------------------------------------------------------------------------------------------------|
+| 📚 Pre-Uploaded Materials       | Organized textbooks and references from Grade 9 to 12, just like a personal library             |
+| 📄 Previous Years EUEE Past Papers | Filterable by year and subject                                                                |
+| 🔍 Clean Study Interface        | Distraction-free material viewer                                                               |
+| 📦 Modular & Extensible Design  | Codebase structured for easy feature extension                                                 |
+| 💡 Future Roadmap-Ready         | Built with tools aligned to LangChain, n8n, and automation ecosystems                           |
+| ✅ Custom Material Upload       | Allows students to upload and read their own study files (PDFs, text) for personalized learning |
+| 🤖 AI Chatbot for Custom Books | Students can chat with an AI tutor powered by their own uploaded study materials                 |
 
-🧰 Tech Stack
 
-- Frontend: React.js + TailwindCSS  
-- Backend: Node.js/Express
-- AI Layer: OpenAI GPT-4 / LangChain /RAG/n8n/ Hugging Face Transformers  
-- PDF Processing: PyMuPDF / pdfplumber  
-- **Auth**: Token-based authentication (JWT or sessions)
+## 🛠️ Tech Stack
 
-🔍 Key Features
+| Layer              | Tool Used         | Reason Chosen                                                              |
+|--------------------|------------------|----------------------------------------------------------------------------|
+| Backend            | **FastAPI**       | Lightweight, async-ready API framework ideal for modular AI apps          |
+| Frontend           | **Next.js**       | Fast, SEO-friendly React framework with great developer experience        |
+| Data Storage       | **Supabase**      | PostgreSQL + built-in Auth and File Storage (fully roadmap-aligned)       |
+| Deployment         | **Railway**       | Easy CI/CD + instant backend/frontend deploys                             |
+| Version Control    | **GitHub**        | Central collaboration and open-source visibility                          |
 
-- 📝 Note-taking and subject/topic tagging  
-- 📤 Upload lecture notes (text or PDF)  
-- 🤖 AI tools: summarizer, flashcard generator, quiz generator, AI tutor  
-- 🔒 User login & personalized dashboard  
-- 🌙 Dark mode, calendar planner, study reminders  
+👥 Team:
+•	Mifta Yibrahim (Team Lead) – miftahh.dev@gmail.com
+•	Meheretabe Abayneh
+•	Abdurahman Kero
+•	Musab Gemil
+________________________________________
 
-🗂 Repository Structure
+---
+
+## 📂 Repository Structure
 
 ```bash
-ai-study-companion/
-├── backend/                # Django backend
-├── frontend/               # React frontend
-├── ai-services/            # LLM-based microservices
-├── docs/                   # Planning docs and team notes
-└── README.md
+euee-study-companion/
+├── backend/                    # FastAPI REST API (core application logic)
+│   ├── app/
+│   │   ├── main.py             # Entry point: server startup & middleware
+│   │   ├── routes/             # Route handlers (materials, exams, custom uploads, chatbot)
+│   │   ├── schemas/            # Pydantic models for request/response validation
+│   │   └── utils/              # Helpers: PDF parsing, file I/O, embedding functions
+│   └── requirements.txt        # Backend Python dependencies
+│
+├── frontend/                   # Next.js web interface (user journey)
+│   ├── pages/                  # Page-level components (Home, Library, Exams, Chat)
+│   ├── components/             # Reusable UI elements (Navbar, Card, Modal)
+│   ├── services/               # API clients & data-fetching hooks
+│   └── public/                 # Static assets (images, fonts, icons)
+│
+├── data/                       # Core study materials & vectors
+│   ├── books/                  # Grade 9–12 PDFs & extracted text files
+│   └── exams/                  # Past 10-year EUEE exam PDFs & metadata
+│
+├── scripts/                    # Automation & build scripts
+│   └── process_documents.py    # Script to parse, chunk & index documents into FAISS
+│
+├── supabase/                   # Supabase setup: SQL schema, auth rules & storage policies
+│
+├── docs/                       # Design docs, architecture diagrams, screenshots
+│
+├── .env.example                # Template for environment variables
+├── README.md                   # You are here: overview, setup, and contribution guide
+└── LICENSE                     # MIT License
 
