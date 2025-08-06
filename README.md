@@ -3,8 +3,7 @@
 > A student-centric platform that provides structured access to curriculum-based learning resources and past national exam papers, designed to improve the EUEE pass rate through focused, accessible, and AI-enhanced revision tools.
 
 ---
-
-## 📌 Purpose
+ 📌 Purpose
 
 Only **2–5%** of Ethiopian students successfully pass the **Ethiopian University Entrance Exam (EUEE)**. This project exists to **solve that problem** by offering:
 - ✅ Centralized access to **Grade 9–12 textbooks and reference materials**
@@ -41,81 +40,7 @@ Only **2–5%** of Ethiopian students successfully pass the **Ethiopian Universi
 •	Abdurahman Kero
 •	Musab Gemil
 
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Python 3.8+
-- Node.js 16+
-- PostgreSQL
-- Git
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-username/euee-study-companion.git
-cd euee-study-companion
-```
-
-### 2. Backend Setup
-```bash
-# Navigate to backend directory
-cd Backend
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up environment variables
-cp ../env.example .env
-# Edit .env with your configuration
-
-# Initialize database
-python -m alembic upgrade head
-
-# Start the backend server
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-
-### 3. Frontend Setup
-```bash
-# Navigate to frontend directory
-cd Frontend
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp ../env.example .env.local
-# Edit .env.local with your configuration
-
-# Start the development server
-npm run dev
-```
-
-### 4. Database Setup
-```bash
-# Create PostgreSQL database
-createdb euee_study_companion
-
-# Run database migrations
-cd Backend
-alembic upgrade head
-```
-
-### 5. Process Documents (Optional)
-```bash
-# Process study materials for AI chatbot
-cd Scripts
-python process_documents.py --materials-dir ../Data/books --init-db
-```
-
----
-
-## 📂 Repository Structure
+ 📂 Repository Structure
 
 ```bash
 euee-study-companion/
@@ -150,65 +75,7 @@ euee-study-companion/
 └── LICENSE                     # MIT License
 ```
 
----
-
-## 🔧 Configuration
-
-### Environment Variables
-Copy `env.example` to `.env` and configure:
-
-**Backend (.env):**
-```bash
-DATABASE_URL=postgresql://user:password@localhost/euee_study_companion
-OPENAI_API_KEY=your-openai-api-key
-SUPABASE_URL=your-supabase-url
-SUPABASE_ANON_KEY=your-supabase-anon-key
-```
-
-**Frontend (.env.local):**
-```bash
-NEXT_PUBLIC_API_URL=http://localhost:8000
-```
-
----
-
-## 🧪 Development
-
-### Running Tests
-```bash
-# Backend tests
-cd Backend
-pytest
-
-# Frontend tests
-cd Frontend
-npm test
-```
-
-### Code Quality
-```bash
-# Backend linting
-cd Backend
-black app/
-isort app/
-flake8 app/
-
-# Frontend linting
-cd Frontend
-npm run lint
-```
-
----
-
-## 📚 API Documentation
-
-Once the backend is running, visit:
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
----
-
-## 🤝 Contributing
+-## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -216,13 +83,6 @@ Once the backend is running, visit:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 🆘 Support
 
