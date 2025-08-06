@@ -1,1 +1,0 @@
-# Schemas package for EUEE Study Companion 
