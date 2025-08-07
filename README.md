@@ -53,11 +53,17 @@ euee-study-companion/
 │   │   └── utils/              # Helpers: PDF parsing, file I/O, embedding functions
 │   └── requirements.txt        # Backend Python dependencies
 │
-├── Frontend/                   # Next.js web interface (user journey)
-│   ├── pages/                  # Page-level components (Home, Library, Exams, Chat)
-│   ├── components/             # Reusable UI elements (Navbar, Card, Modal)
-│   ├── services/               # API clients & data-fetching hooks
-│   └── public/                 # Static assets (images, fonts, icons)
+├── Frontend/                   # React.js SPA (client-side rendering)
+│   ├── public/                 # Static assets
+│   │   ├── index.html          # Main HTML entry
+│   │   ├── images/             # App visuals
+│   │   └── fonts/              # Custom typography
+│   ├── src/
+│   │   ├── components/         # Reusable UI (Navbar.jsx, Card.jsx, Modal.jsx)
+│   │   ├── pages/              # Route components (Home.jsx, Library.jsx, Exams.jsx, Chat.jsx)
+│   │   ├── services/           # API clients (axios config, fetch hooks)
+│   │   └── App.jsx            # Router setup (react-router-dom)
+│   └── package.json           # Includes react-router-dom
 │
 ├── Data/                       # Core study materials & vectors
 │   ├── books/                  # Grade 9–12 PDFs & extracted text files
@@ -71,7 +77,7 @@ euee-study-companion/
 ├── Docs/                       # Design docs, architecture diagrams, screenshots
 │
 ├── env.example                 # Template for environment variables
-├── README.md                   # You are here: overview, setup, and contribution guide
+├── README.md                   # Project overview and setup guide
 └── LICENSE                     # MIT License
 ```
 
