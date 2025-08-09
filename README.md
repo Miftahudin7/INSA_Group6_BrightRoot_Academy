@@ -40,6 +40,7 @@ Only **2–5%** of Ethiopian students successfully pass the **Ethiopian Universi
 •	Abdurahman Kero
 •	Musab Gemil
 
+```plaintext
 euee-study-companion/
 ├── Backend/                               # FastAPI-based REST API (core application logic)
 │   ├── app/
