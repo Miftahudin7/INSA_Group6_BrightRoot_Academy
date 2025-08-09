@@ -41,42 +41,42 @@ Only **2–5%** of Ethiopian students successfully pass the **Ethiopian Universi
 •	Musab Gemil
 
 euee-study-companion/
-... bash
-├── Backend/                    # FastAPI REST API (core application logic)
+├── Backend/                               # FastAPI-based REST API (core application logic)
 │   ├── app/
-│   │   ├── main.py             # Entry point: server startup & middleware
-│   │   ├── routes/             # Route handlers (materials, exams, custom uploads, chatbot)
-│   │   ├── schemas/            # Pydantic models for request/response validation
-│   │   ├── models/             # SQLAlchemy database models
-│   │   └── utils/              # Helpers: PDF parsing, file I/O, embedding functions
-│   └── requirements.txt        # Backend Python dependencies
+│   │   ├── main.py                        # Application entry point: server initialization, middleware configuration
+│   │   ├── routes/                        # API route handlers (materials, exams, custom uploads, chatbot)
+│   │   ├── schemas/                       # Pydantic models for request/response data validation
+│   │   ├── models/                        # SQLAlchemy ORM models for database entities
+│   │   └── utils/                         # Utility functions: PDF parsing, file I/O, embeddings
+│   └── requirements.txt                   # Backend Python dependencies
 │
-├── Frontend/                   # React.js SPA (client-side rendering)
-│   ├── public/                 # Static assets
-│   │   ├── index.html          # Main HTML entry
-│   │   ├── images/             # App visuals
-│   │   └── fonts/              # Custom typography
+├── Frontend/                              # React.js Single-Page Application (SPA)
+│   ├── public/                            # Static assets
+│   │   ├── index.html                     # Primary HTML entry point
+│   │   ├── images/                        # Application visuals and graphics
+│   │   └── fonts/                         # Custom font files
 │   ├── src/
-│   │   ├── components/         # Reusable UI (Navbar.jsx, Card.jsx, Modal.jsx)
-│   │   ├── pages/              # Route components (Home.jsx, Library.jsx, Exams.jsx, Chat.jsx)
-│   │   ├── services/           # API clients (axios config, fetch hooks)
-│   │   └── App.jsx            # Router setup (react-router-dom)
-│   └── package.json           # Includes react-router-dom
+│   │   ├── components/                    # Reusable UI components (e.g., Navbar.jsx, Card.jsx, Modal.jsx)
+│   │   ├── pages/                         # Page-level components (Home.jsx, Library.jsx, Exams.jsx, Chat.jsx)
+│   │   ├── services/                      # API service layer (Axios configuration, data fetching hooks)
+│   │   └── App.jsx                        # Application routing setup (react-router-dom)
+│   └── package.json                       # Frontend dependencies (includes react-router-dom)
 │
-├── Data/                       # Core study materials & vectors
-│   ├── books/                  # Grade 9–12 PDFs & extracted text files
-│   └── exams/                  # Past 10-year EUEE exam PDFs & metadata
+├── Data/                                  # Core study materials and vectorized content
+│   ├── books/                             # Grade 9–12 textbooks (PDFs and extracted text)
+│   └── exams/                             # Past 10 years of EUEE exam PDFs and metadata
 │
-├── Scripts/                    # Automation & build scripts
-│   └── process_documents.py    # Script to parse, chunk & index documents into FAISS
+├── Scripts/                               # Automation and build scripts
+│   └── process_documents.py               # Document parsing, chunking, and FAISS indexing
 │
-├── Supabase/                   # Supabase setup: SQL schema, auth rules & storage policies
+├── Supabase/                              # Supabase configuration (SQL schema, authentication rules, storage policies)
 │
-├── Docs/                       # Design docs, architecture diagrams, screenshots
+├── Docs/                                  # Documentation, architecture diagrams, and screenshots
 │
-├── env.example                 # Template for environment variables
-├── README.md                   # Project overview and setup guide
-└── LICENSE                     # MIT License
+├── env.example                            # Example environment variable configuration
+├── README.md                              # Project overview and setup instructions
+└── LICENSE                                # MIT License
+
 
 -## 🤝 Contributing
 
