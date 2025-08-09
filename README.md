@@ -40,8 +40,8 @@ Only **2–5%** of Ethiopian students successfully pass the **Ethiopian Universi
 •	Abdurahman Kero
 •	Musab Gemil
 
-
 euee-study-companion/
+... bash
 ├── Backend/                    # FastAPI REST API (core application logic)
 │   ├── app/
 │   │   ├── main.py             # Entry point: server startup & middleware
