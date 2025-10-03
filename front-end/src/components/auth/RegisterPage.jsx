@@ -12,7 +12,7 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import "./LoginPage.css";
 
-const RegisterPage = ({ onRegisterSuccess, onSwitchToLogin }) => {
+const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
   // Form state
   const [formData, setFormData] = useState({
     username: "",

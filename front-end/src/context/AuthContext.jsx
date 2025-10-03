@@ -1,10 +1,13 @@
+// AuthContext.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+
+const API_BASE_URL = "http://localhost:8000"; // Django backend
 
 // Create the authentication context
 const AuthContext = createContext();
 
-// Custom hook to use authentication context
+// Custom hook
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -13,163 +16,147 @@ export const useAuth = () => {
   return context;
 };
 
-// Authentication provider component
+// Provider
 export const AuthProvider = ({ children }) => {
-  // State for user authentication
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Check if user is already logged in (on app startup)
+  // Check auth on app load
   useEffect(() => {
     const checkAuthStatus = async () => {
-      try {
-        // Check for saved JWT token in localStorage
-        const token = localStorage.getItem("brightroot_token");
-        const userData = localStorage.getItem("brightroot_user");
+      const access = localStorage.getItem("brightroot_token");
+      const storedUser = localStorage.getItem("brightroot_user");
 
-        if (token && userData) {
-          // Verify token is still valid by making a test request
-          try {
-            await axios.get('http://localhost:8000/api/users/profile/', {
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-            });
-            // Token is valid, restore user session
-            setUser(JSON.parse(userData));
-          } catch (error) {
-            // Token is invalid, clear storage
-            localStorage.removeItem("brightroot_token");
-            localStorage.removeItem("brightroot_refresh");
-            localStorage.removeItem("brightroot_user");
-          }
+      if (access && storedUser) {
+        try {
+          // verify token is valid
+          await axios.get(`${API_BASE_URL}/api/users/profile/`, {
+            headers: { Authorization: `Bearer ${access}` },
+          });
+          setUser(JSON.parse(storedUser));
+        } catch {
+          await handleTokenRefresh();
         }
-      } catch (error) {
-        console.error("Auth check failed:", error);
-        // Clear corrupted data
-        localStorage.removeItem("brightroot_token");
-        localStorage.removeItem("brightroot_user");
-      } finally {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     };
-
     checkAuthStatus();
   }, []);
 
-  // Login function
-  const login = async (email, password) => {
+  // Token refresh
+  const handleTokenRefresh = async () => {
+    const refresh = localStorage.getItem("brightroot_refresh");
+    if (!refresh) {
+      logout();
+      return;
+    }
+    try {
+      const res = await axios.post(`${API_BASE_URL}/api/token/refresh/`, { refresh });
+      localStorage.setItem("brightroot_token", res.data.access);
+
+      // Fetch profile
+      const profileRes = await axios.get(`${API_BASE_URL}/api/users/profile/`, {
+        headers: { Authorization: `Bearer ${res.data.access}` },
+      });
+
+      localStorage.setItem("brightroot_user", JSON.stringify(profileRes.data));
+      setUser(profileRes.data);
+    } catch {
+      logout();
+    }
+  };
+
+  // Login
+  const login = async (username, password) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/ai/login/', {
-        email,
-        password
+      const response = await axios.post(`${API_BASE_URL}/api/token/`, { username, password });
+      const { access, refresh } = response.data;
+
+      const profileRes = await axios.get(`${API_BASE_URL}/api/users/profile/`, {
+        headers: { Authorization: `Bearer ${access}` },
       });
 
-      const { access, refresh, user } = response.data;
+      const userData = profileRes.data;
 
-      const userData = {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-        firstName: user.username,
-        lastName: "",
-        subjects: [],
-        grades: {},
-      };
-
-      // Save to localStorage for persistence
       localStorage.setItem("brightroot_token", access);
       localStorage.setItem("brightroot_refresh", refresh);
       localStorage.setItem("brightroot_user", JSON.stringify(userData));
-
-      // Update state
       setUser(userData);
 
       return { success: true, user: userData };
-    } catch (error) {
-      console.error("Login error:", error);
-      let errorMessage = "Login failed";
-      
-      if (error.response?.status === 401) {
-        errorMessage = "Invalid email or password";
-      } else if (error.response?.data?.detail) {
-        errorMessage = error.response.data.detail;
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-      
-      setError(errorMessage);
-      return { success: false, error: errorMessage };
+    } catch (err) {
+      let message = "Login failed";
+      if (err.response?.status === 401) message = "Invalid username or password";
+      else if (err.response?.data?.detail) message = err.response.data.detail;
+
+      setError(message);
+      return { success: false, error: message };
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Logout function
+  // Logout
   const logout = () => {
-    // Clear localStorage
-    localStorage.removeItem("brightroot_token");
-    localStorage.removeItem("brightroot_refresh");
-    localStorage.removeItem("brightroot_user");
-
-    // Clear state
+    localStorage.clear();
     setUser(null);
     setError(null);
   };
 
-  // Register function
+  // Register
   const register = async (userData) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/ai/signup/', {
+      // POST to Django registration endpoint
+      const response = await axios.post(`${API_BASE_URL}/api/users/register/`, {
         username: userData.username,
         email: userData.email,
-        password: userData.password
+        password: userData.password,
       });
 
-      // Then login
-      return await login(userData.email, userData.password);
-    } catch (error) {
-      console.error("Registration error:", error);
-      let errorMessage = "Registration failed";
-      
-      if (error.response?.data) {
-        // Handle Django validation errors
-        const errors = error.response.data;
-        if (errors.username) {
-          errorMessage = `Username: ${errors.username[0]}`;
-        } else if (errors.email) {
-          errorMessage = `Email: ${errors.email[0]}`;
-        } else if (errors.password) {
-          errorMessage = `Password: ${errors.password[0]}`;
-        } else if (errors.non_field_errors) {
-          errorMessage = errors.non_field_errors[0];
+      // If backend returns JWT tokens
+      const { access, refresh, user } = response.data;
+      if (access && refresh) {
+        localStorage.setItem("brightroot_token", access);
+        localStorage.setItem("brightroot_refresh", refresh);
+        if (user) {
+          localStorage.setItem("brightroot_user", JSON.stringify(user));
+          setUser(user);
         }
-      } else if (error.message) {
-        errorMessage = error.message;
       }
-      
-      setError(errorMessage);
-      return { success: false, error: errorMessage };
+
+      return { success: true, data: response.data };
+    } catch (err) {
+      let message = "Registration failed";
+
+      if (err.response?.data) {
+        const errors = err.response.data;
+        if (errors.username) message = `Username: ${errors.username[0]}`;
+        else if (errors.email) message = `Email: ${errors.email[0]}`;
+        else if (errors.password) message = `Password: ${errors.password[0]}`;
+        else if (errors.non_field_errors) message = errors.non_field_errors[0];
+      }
+
+      setError(message);
+      return { success: false, error: message };
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Update user profile (subjects, grades, etc.)
+  // Update user profile locally
   const updateUserProfile = (updates) => {
     const updatedUser = { ...user, ...updates };
     setUser(updatedUser);
     localStorage.setItem("brightroot_user", JSON.stringify(updatedUser));
   };
 
-  // Context value
   const value = {
     user,
     isLoading,

@@ -8,14 +8,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
 
-// Main App Content Component (needs to be inside AuthProvider)
+// Main App Content Component (inside AuthProvider)
 const AppContent = () => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, logout } = useAuth(); // <-- changed logoutUser → logout
   const [currentView, setCurrentView] = useState("welcome");
   const [selectedSubjectGrade, setSelectedSubjectGrade] = useState(null);
   const [showRegistration, setShowRegistration] = useState(false);
 
-  // Show loading screen while checking authentication
   if (isLoading) {
     return (
       <div className="loading-screen">
@@ -30,7 +29,7 @@ const AppContent = () => {
     );
   }
 
-  // Show login/registration page if user is not authenticated
+  // If not authenticated → show login/register
   if (!user) {
     if (showRegistration) {
       return (
@@ -43,7 +42,7 @@ const AppContent = () => {
         />
       );
     }
-    
+
     return (
       <LoginPage
         onLoginSuccess={() => {
@@ -57,16 +56,15 @@ const AppContent = () => {
   // Handle subject and grade selection from WelcomePage
   const handleSubjectSelected = (selection) => {
     setSelectedSubjectGrade(selection);
-    setCurrentView("dashboard"); // Will implement dashboard later
-    console.log("Selected:", selection); // For now, just log it
+    setCurrentView("dashboard");
+    console.log("Selected:", selection);
   };
 
-  // Render different views based on current state
+  // Render based on currentView
   const renderCurrentView = () => {
     switch (currentView) {
       case "welcome":
         return <WelcomePage onSubjectSelected={handleSubjectSelected} />;
-
       case "dashboard":
         return (
           <Dashboard
@@ -74,7 +72,6 @@ const AppContent = () => {
             onBackToSubjects={() => setCurrentView("welcome")}
           />
         );
-
       default:
         return <WelcomePage onSubjectSelected={handleSubjectSelected} />;
     }
@@ -82,7 +79,7 @@ const AppContent = () => {
 
   return (
     <div className="app">
-      {/* Navigation Header (when user is logged in) */}
+      {/* Header (when logged in) */}
       {user && (
         <nav className="app-header">
           <div className="container-fluid">
@@ -97,15 +94,14 @@ const AppContent = () => {
               <div className="d-flex align-items-center">
                 <span className="text-muted me-3">
                   <i className="bi bi-person me-1"></i>
-                  {user.firstName} {user.lastName}
+                  {user.username ||
+                    `${user.first_name || ""} ${user.last_name || ""}`}
                 </span>
                 <button
                   className="btn btn-outline-light btn-sm"
                   onClick={() => {
-                    // Handle logout
                     if (window.confirm("Are you sure you want to logout?")) {
-                      // This will be handled by AuthContext
-                      window.location.reload(); // Simple reload for now
+                      logout(); // ✅ use correct logout
                     }
                   }}
                 >
@@ -121,7 +117,7 @@ const AppContent = () => {
       {/* Main Content */}
       <main className="app-main">{renderCurrentView()}</main>
 
-      {/* Footer (when user is logged in) */}
+      {/* Footer (when logged in) */}
       {user && (
         <footer className="app-footer">
           <div className="container">
@@ -146,7 +142,7 @@ const AppContent = () => {
   );
 };
 
-// Main App Component
+// Wrap with AuthProvider
 const App = () => {
   return (
     <AuthProvider>

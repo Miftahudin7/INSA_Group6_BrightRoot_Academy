@@ -17,6 +17,7 @@ import {
 import axios from "axios";
 import "./Dashboard.css";
 
+
 const Dashboard = ({ selectedSubjectGrade, onBackToSubjects }) => {
   const [activeTab, setActiveTab] = useState("upload");
   const [files, setFiles] = useState([]);
@@ -27,6 +28,7 @@ const Dashboard = ({ selectedSubjectGrade, onBackToSubjects }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+
   // File upload state
   const [uploadForm, setUploadForm] = useState({
     title: "",
@@ -35,6 +37,7 @@ const Dashboard = ({ selectedSubjectGrade, onBackToSubjects }) => {
     grade: selectedSubjectGrade?.grade?.value || "Grade9",
   });
   const [selectedFile, setSelectedFile] = useState(null);
+
 
   // AI generation state
   const [selectedFileForAI, setSelectedFileForAI] = useState(null);
@@ -55,13 +58,13 @@ const Dashboard = ({ selectedSubjectGrade, onBackToSubjects }) => {
   const API_BASE_URL = "http://localhost:8000/api";
   const token = localStorage.getItem("brightroot_token");
 
-  // Configure axios with auth token
   const apiClient = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: "http://localhost:8000/api",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token ? `Bearer ${token}` : "",
     },
   });
+
 
   useEffect(() => {
     if (selectedSubjectGrade) {
@@ -331,21 +334,36 @@ const Dashboard = ({ selectedSubjectGrade, onBackToSubjects }) => {
                 <ListGroup.Item key={file.id} className="d-flex justify-content-between align-items-center">
                   <div>
                     <h6 className="mb-1">{file.title}</h6>
+                    <p className="mb-1">{file.description}</p>
                     <small className="text-muted">
                       {file.subject} • {file.grade} • {new Date(file.uploaded_at).toLocaleDateString()}
                     </small>
                   </div>
-                  <div>
+
+                  <div className="d-flex gap-2">
+                    {/* Download button */}
+                    <a
+                      href={`http://localhost:8000/api/notes/download/${file.id}/`}
+                      className="btn btn-outline-success btn-sm d-flex align-items-center"
+                      target="_blank"
+                      download
+                    >
+                      <i className="bi bi-download me-1"></i>
+                      Download
+                    </a>
+
+                    {/* Summary Button */}
                     <Button
                       size="sm"
                       variant="outline-primary"
-                      className="me-2"
                       onClick={() => generateSummary(file.id)}
                       disabled={aiLoading}
                     >
                       <i className="bi bi-lightbulb me-1"></i>
                       Summary
                     </Button>
+
+                    {/* Quiz Button */}
                     <Button
                       size="sm"
                       variant="outline-success"

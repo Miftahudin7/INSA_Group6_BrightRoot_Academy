@@ -25,8 +25,11 @@ class UploadedFile(models.Model):
     subject = models.CharField(max_length=50, choices=SUBJECT_CHOICES, default="Maths")
     grade = models.CharField(max_length=50, choices=GRADE_CHOICES, default="Grade9")
     file_name = models.CharField(max_length=255)
-    file_url = models.URLField()
+    file_url = models.URLField(blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'title', 'grade', 'subject')
 
     def __str__(self):
         return f"{self.title} ({self.subject}-{self.grade})"
