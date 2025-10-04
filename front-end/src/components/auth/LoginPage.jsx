@@ -15,7 +15,7 @@ import "./LoginPage.css";
 const LoginPage = ({ onLoginSuccess, onSwitchToRegister }) => {
   // Form state
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [formErrors, setFormErrors] = useState({});
@@ -45,11 +45,9 @@ const LoginPage = ({ onLoginSuccess, onSwitchToRegister }) => {
   const validateForm = () => {
     const errors = {};
 
-    // Email validation
-    if (!formData.email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Please enter a valid email address";
+    // Username validation
+    if (!formData.username) {
+      errors.username = "Username is required";
     }
 
     // Password validation
@@ -71,7 +69,7 @@ const LoginPage = ({ onLoginSuccess, onSwitchToRegister }) => {
       return;
     }
 
-    const result = await login(formData.email, formData.password);
+    const result = await login(formData.username, formData.password);
 
     if (result.success) {
       // Login successful, parent component will handle navigation
@@ -114,24 +112,24 @@ const LoginPage = ({ onLoginSuccess, onSwitchToRegister }) => {
 
                   {/* Login Form */}
                   <Form onSubmit={handleSubmit}>
-                    {/* Email Field */}
+                    {/* Username Field */}
                     <Form.Group className="mb-3">
                       <Form.Label className="text-light">
-                        <i className="bi bi-envelope me-2"></i>
-                        Email Address
+                        <i className="bi bi-person me-2"></i>
+                        Username
                       </Form.Label>
                       <Form.Control
-                        type="email"
-                        name="email"
-                        value={formData.email}
+                        type="text"
+                        name="username"
+                        value={formData.username}
                         onChange={handleChange}
-                        placeholder="Enter your email"
-                        isInvalid={!!formErrors.email}
+                        placeholder="Enter your username"
+                        isInvalid={!!formErrors.username}
                         disabled={isLoading}
                         className="custom-input"
                       />
                       <Form.Control.Feedback type="invalid">
-                        {formErrors.email}
+                        {formErrors.username}
                       </Form.Control.Feedback>
                     </Form.Group>
 
@@ -197,7 +195,7 @@ const LoginPage = ({ onLoginSuccess, onSwitchToRegister }) => {
                     {/* Demo Credentials */}
                     <div className="demo-credentials text-center">
                       <small className="text-muted">
-                        Demo: any email + any password (6+ chars)
+                        Demo: any username + any password (6+ chars)
                       </small>
                     </div>
 

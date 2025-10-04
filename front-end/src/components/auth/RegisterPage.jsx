@@ -12,7 +12,7 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import "./LoginPage.css";
 
-const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
+const RegisterPage = ({ onSwitchToLogin }) => {
   // Form state
   const [formData, setFormData] = useState({
     username: "",
@@ -35,7 +35,6 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
       [name]: value,
     }));
 
-    // Clear field error when user starts typing
     if (formErrors[name]) {
       setFormErrors((prev) => ({
         ...prev,
@@ -48,28 +47,24 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
   const validateForm = () => {
     const errors = {};
 
-    // Username validation
-    if (!formData.username) {
+    if (!formData.username.trim()) {
       errors.username = "Username is required";
     } else if (formData.username.length < 3) {
       errors.username = "Username must be at least 3 characters";
     }
 
-    // Email validation
-    if (!formData.email) {
+    if (!formData.email.trim()) {
       errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = "Please enter a valid email address";
     }
 
-    // Password validation
     if (!formData.password) {
       errors.password = "Password is required";
     } else if (formData.password.length < 6) {
       errors.password = "Password must be at least 6 characters";
     }
 
-    // Confirm password validation
     if (!formData.confirmPassword) {
       errors.confirmPassword = "Please confirm your password";
     } else if (formData.password !== formData.confirmPassword) {
@@ -84,17 +79,14 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     const result = await register(formData);
 
     if (result.success) {
-      // Registration successful, parent component will handle navigation
-      onRegisterSuccess && onRegisterSuccess();
+      // Switch to login page after successful registration
+      onSwitchToLogin && onSwitchToLogin();
     }
-    // Error handling is managed by AuthContext
   };
 
   return (
@@ -103,7 +95,6 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
         <Row className="h-100 align-items-center justify-content-center">
           <Col xs={12} sm={8} md={6} lg={4} xl={3}>
             <div className="login-container fade-in">
-              {/* Brand Header */}
               <div className="text-center mb-4">
                 <div className="brand-logo">
                   <i className="bi bi-mortarboard-fill text-success fs-1"></i>
@@ -116,12 +107,12 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
                 </p>
               </div>
 
-              {/* Registration Card */}
               <Card className="login-card shadow-lg border-0">
                 <Card.Body className="p-4">
-                  <h4 className="text-center mb-4 text-light">Create Account</h4>
+                  <h4 className="text-center mb-4 text-light">
+                    Create Account
+                  </h4>
 
-                  {/* Error Alert */}
                   {error && (
                     <Alert variant="danger" className="mb-3">
                       <i className="bi bi-exclamation-triangle me-2"></i>
@@ -129,13 +120,11 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
                     </Alert>
                   )}
 
-                  {/* Registration Form */}
                   <Form onSubmit={handleSubmit}>
                     {/* Username Field */}
                     <Form.Group className="mb-3">
                       <Form.Label className="text-light">
-                        <i className="bi bi-person me-2"></i>
-                        Username
+                        <i className="bi bi-person me-2"></i> Username
                       </Form.Label>
                       <Form.Control
                         type="text"
@@ -155,8 +144,7 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
                     {/* Email Field */}
                     <Form.Group className="mb-3">
                       <Form.Label className="text-light">
-                        <i className="bi bi-envelope me-2"></i>
-                        Email Address
+                        <i className="bi bi-envelope me-2"></i> Email Address
                       </Form.Label>
                       <Form.Control
                         type="email"
@@ -176,8 +164,7 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
                     {/* Password Field */}
                     <Form.Group className="mb-3">
                       <Form.Label className="text-light">
-                        <i className="bi bi-lock me-2"></i>
-                        Password
+                        <i className="bi bi-lock me-2"></i> Password
                       </Form.Label>
                       <div className="password-input-container">
                         <Form.Control
@@ -212,8 +199,7 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
                     {/* Confirm Password Field */}
                     <Form.Group className="mb-3">
                       <Form.Label className="text-light">
-                        <i className="bi bi-lock me-2"></i>
-                        Confirm Password
+                        <i className="bi bi-lock me-2"></i> Confirm Password
                       </Form.Label>
                       <div className="password-input-container">
                         <Form.Control
@@ -229,7 +215,9 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
                         <Button
                           variant="link"
                           className="password-toggle"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
                           type="button"
                           disabled={isLoading}
                         >
@@ -285,7 +273,6 @@ const RegisterPage = ({ onRegisterSueditccess, onSwitchToLogin }) => {
                 </Card.Body>
               </Card>
 
-              {/* Footer */}
               <div className="text-center mt-4">
                 <small className="text-muted">
                   Built by Team BrightRoot • Frontend: Abdurehman • Backend:

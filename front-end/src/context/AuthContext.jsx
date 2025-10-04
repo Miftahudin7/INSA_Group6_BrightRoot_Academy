@@ -4,10 +4,8 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8000"; // Django backend
 
-// Create the authentication context
 const AuthContext = createContext();
 
-// Custom hook
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -16,13 +14,11 @@ export const useAuth = () => {
   return context;
 };
 
-// Provider
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Check auth on app load
   useEffect(() => {
     const checkAuthStatus = async () => {
       const access = localStorage.getItem("brightroot_token");
@@ -30,7 +26,6 @@ export const AuthProvider = ({ children }) => {
 
       if (access && storedUser) {
         try {
-          // verify token is valid
           await axios.get(`${API_BASE_URL}/api/users/profile/`, {
             headers: { Authorization: `Bearer ${access}` },
           });
@@ -44,7 +39,6 @@ export const AuthProvider = ({ children }) => {
     checkAuthStatus();
   }, []);
 
-  // Token refresh
   const handleTokenRefresh = async () => {
     const refresh = localStorage.getItem("brightroot_refresh");
     if (!refresh) {
@@ -52,10 +46,11 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/token/refresh/`, { refresh });
+      const res = await axios.post(`${API_BASE_URL}/api/token/refresh/`, {
+        refresh,
+      });
       localStorage.setItem("brightroot_token", res.data.access);
 
-      // Fetch profile
       const profileRes = await axios.get(`${API_BASE_URL}/api/users/profile/`, {
         headers: { Authorization: `Bearer ${res.data.access}` },
       });
@@ -67,13 +62,26 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Login
-  const login = async (username, password) => {
+  // ✅ Safe Login — supports both username or email depending on backend
+  const login = async (identifier, password) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/token/`, { username, password });
+      const payload = {
+        username: identifier, // Django SimpleJWT uses `username`
+      };
+
+      // if the backend expects email instead of username, send both
+      if (identifier.includes("@")) {
+        payload.email = identifier;
+      }
+
+      const response = await axios.post(`${API_BASE_URL}/api/token/`, {
+        ...payload,
+        password,
+      });
+
       const { access, refresh } = response.data;
 
       const profileRes = await axios.get(`${API_BASE_URL}/api/users/profile/`, {
@@ -90,7 +98,8 @@ export const AuthProvider = ({ children }) => {
       return { success: true, user: userData };
     } catch (err) {
       let message = "Login failed";
-      if (err.response?.status === 401) message = "Invalid username or password";
+      if (err.response?.status === 401)
+        message = "Invalid username/email or password";
       else if (err.response?.data?.detail) message = err.response.data.detail;
 
       setError(message);
@@ -100,27 +109,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout
   const logout = () => {
     localStorage.clear();
     setUser(null);
     setError(null);
   };
 
-  // Register
   const register = async (userData) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      // POST to Django registration endpoint
       const response = await axios.post(`${API_BASE_URL}/api/users/register/`, {
         username: userData.username,
         email: userData.email,
         password: userData.password,
       });
 
-      // If backend returns JWT tokens
       const { access, refresh, user } = response.data;
       if (access && refresh) {
         localStorage.setItem("brightroot_token", access);
@@ -150,7 +155,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Update user profile locally
   const updateUserProfile = (updates) => {
     const updatedUser = { ...user, ...updates };
     setUser(updatedUser);
