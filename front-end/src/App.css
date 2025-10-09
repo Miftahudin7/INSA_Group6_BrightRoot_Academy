@@ -1,0 +1,131 @@
+/* Main App Styles */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary-bg);
+}
+
+/* App Header */
+.app-header {
+  background-color: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.app-header .btn-outline-light {
+  border-color: var(--border-color);
+  color: var(--secondary-text);
+}
+
+.app-header .btn-outline-light:hover {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: white;
+}
+
+/* App Main Content */
+.app-main {
+  flex: 1;
+  overflow-x: hidden;
+}
+
+/* App Footer */
+.app-footer {
+  background-color: var(--secondary-bg);
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+/* Loading Screen */
+.loading-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-bg);
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(46, 160, 67, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(31, 111, 235, 0.1) 0%, transparent 50%);
+}
+
+.loading-screen .spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Dashboard Placeholder */
+.dashboard-placeholder {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-bg);
+}
+
+.dashboard-placeholder .alert {
+  background-color: rgba(31, 111, 235, 0.1);
+  border-color: rgba(31, 111, 235, 0.2);
+  color: var(--primary-text);
+  max-width: 600px;
+  border-radius: 12px;
+}
+
+.dashboard-placeholder .alert h5 {
+  color: var(--brand-secondary);
+  margin-bottom: 1rem;
+}
+
+.dashboard-placeholder .alert ul li {
+  padding: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  .app-header .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .app-header .d-flex span {
+    font-size: 1rem !important;
+  }
+  
+  .app-header .text-muted {
+    display: none; /* Hide user name on mobile */
+  }
+}
+
+/* Focus and accessibility */
+.btn:focus,
+.app-header .btn:focus {
+  box-shadow: 0 0 0 0.2rem rgba(46, 160, 67, 0.25);
+}
+
+/* Smooth transitions */
+.app-main {
+  transition: all 0.3s ease;
+}
+
+/* Custom scrollbar for main content */
+.app-main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.app-main::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+}
+
+.app-main::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.app-main::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-bg);
+}

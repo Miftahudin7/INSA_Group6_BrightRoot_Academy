@@ -1,0 +1,32 @@
+.chat-card {
+  height: 500px;
+  overflow-y: auto;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.chat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-message.user {
+  text-align: right;
+  background-color: #0d6efd;
+  color: #fff;
+  padding: 8px;
+  border-radius: 10px;
+  max-width: 70%;
+  align-self: flex-end;
+}
+
+.chat-message.ai {
+  text-align: left;
+  background-color: #343a40;
+  color: #fff;
+  padding: 8px;
+  border-radius: 10px;
+  max-width: 70%;
+  align-self: flex-start;
+}

@@ -1,0 +1,10 @@
+asgiref>=3.6,<4
+Django>=4.2,<5.3
+django-cors-headers
+djangorestframework
+djangorestframework-simplejwt
+python-dotenv==0.19.2
+django-filter
+psycopg2-binary>=2.9.9,<3
+google-generativeai>=0.3.0
+supabase>=2.0.0

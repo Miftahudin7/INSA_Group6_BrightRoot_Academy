@@ -1,0 +1,193 @@
+/* General */
+.landing-container {
+  font-family: "Poppins", sans-serif;
+  background: #141E2E;
+  color: #e3e8ef;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Floating Shapes */
+.floating-shapes .shape {
+  position: absolute;
+  background-color: rgba(93, 226, 231, 0.15);
+  animation: float 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+.floating-shapes .circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  top: 10%;
+  left: 5%;
+}
+
+.floating-shapes .circle.small {
+  width: 40px;
+  height: 40px;
+  bottom: 20%;
+  right: 10%;
+  animation-duration: 8s;
+}
+
+.floating-shapes .triangle {
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 70px solid rgba(93, 226, 231, 0.15);
+  top: 30%;
+  right: 20%;
+}
+
+.floating-shapes .square {
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  left: 70%;
+  animation-duration: 7s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  width: 100%;
+  padding: 7rem 2rem 5rem;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1604079625732-cd786f0d76ee?auto=format&fit=crop&w=1350&q=80")
+    center/cover no-repeat;
+  opacity: 0.15;
+  filter: brightness(0.7);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 750px;
+  animation: fadeIn 1.5s ease;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero-title span {
+  color: #5de2e7;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 2.5rem;
+}
+
+/* CTA Buttons */
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.9rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #5de2e7;
+  color: #141E2E;
+}
+
+.btn-primary:hover {
+  background-color: #4bd5d9;
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #5de2e7;
+  color: #5de2e7;
+}
+
+.btn-secondary:hover {
+  background-color: #5de2e7;
+  color: #141E2E;
+  transform: scale(1.05);
+}
+
+/* Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.3rem; }
+  .cta-buttons { flex-direction: column; }
+}
+.hero-section {
+  position: relative;
+  background-color: #141e2e; /* impressive background */
+  color: #f0f8ff; /* impressive text color */
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 30, 46, 0.6);
+  pointer-events: none; /* ✅ allows clicks to pass through */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2; /* ✅ buttons and text above overlay */
+}
+
+.cta-buttons button {
+  margin: 0 10px;
+  cursor: pointer;
+}

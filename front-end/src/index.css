@@ -1,0 +1,6 @@
+/* BrightRoot Academy - Main CSS Entry Point */
+
+/* Import our professional global styles */
+@import './styles/globals.css';
+
+/* Additional global styles specific to our app can go here */

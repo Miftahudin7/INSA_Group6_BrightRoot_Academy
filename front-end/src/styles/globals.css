@@ -1,0 +1,116 @@
+/* BrightRoot Academy - Professional Dark-First Design */
+
+/* CSS Custom Properties for Dark Theme */
+:root {
+  --primary-bg: #0d1117;        /* Dark background */
+  --secondary-bg: #161b22;      /* Card/component background */
+  --accent-bg: #21262d;         /* Hover states */
+  --border-color: #30363d;      /* Borders */
+  
+  --primary-text: #f0f6fc;      /* Main text color */
+  --secondary-text: #8b949e;    /* Secondary text */
+  --accent-text: #58a6ff;       /* Links and accents */
+  
+  --success-color: #238636;     /* Success states */
+  --warning-color: #d29922;     /* Warning states */
+  --danger-color: #da3633;      /* Error states */
+  
+  --brand-primary: #2ea043;     /* BrightRoot green */
+  --brand-secondary: #1f6feb;   /* Study blue */
+  
+  /* Spacing system */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+}
+
+/* Global Reset & Dark Theme Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Override Bootstrap dark theme */
+.btn-primary {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.btn-primary:hover {
+  background-color: #2c974b;
+  border-color: #2c974b;
+}
+
+.card {
+  background-color: var(--secondary-bg);
+  border-color: var(--border-color);
+  color: var(--primary-text);
+}
+
+.form-control {
+  background-color: var(--secondary-bg);
+  border-color: var(--border-color);
+  color: var(--primary-text);
+}
+
+.form-control:focus {
+  background-color: var(--secondary-bg);
+  border-color: var(--brand-primary);
+  color: var(--primary-text);
+  box-shadow: 0 0 0 0.2rem rgba(46, 160, 67, 0.25);
+}
+
+/* Custom utility classes */
+.bg-dark-primary { background-color: var(--primary-bg); }
+.bg-dark-secondary { background-color: var(--secondary-bg); }
+.text-accent { color: var(--accent-text); }
+.border-dark-custom { border-color: var(--border-color); }
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+}
+
+/* Loading and animation utilities */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-bg);
+}

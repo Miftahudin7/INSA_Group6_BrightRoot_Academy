@@ -1,0 +1,60 @@
+.highlights-section {
+  padding: 4rem 2rem;
+  background: #1b263b; /* dark but warm background */
+  color: #e3e8ef;
+  text-align: center;
+}
+
+.highlights-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: #5de2e7; /* accent color for headings */
+}
+
+.highlights-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.highlight-card {
+  background: rgba(93, 226, 231, 0.05);
+  border: 1px solid rgba(93, 226, 231, 0.2);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 16px rgba(93, 226, 231, 0.3);
+}
+
+.highlight-icon {
+  font-size: 2.5rem;
+  color: #5de2e7;
+  margin-bottom: 1rem;
+}
+
+.highlight-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.highlight-card p {
+  font-size: 1rem;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .highlights-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+}

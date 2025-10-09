@@ -1,0 +1,201 @@
+/* LoginPage Component Styles */
+
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--primary-bg) 0%,
+    var(--secondary-bg) 50%,
+    var(--primary-bg) 100%
+  );
+  position: relative;
+  overflow-x: hidden;
+}
+
+.login-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(46, 160, 67, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(31, 111, 235, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.login-container {
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.brand-logo {
+  margin-bottom: 1rem;
+}
+
+.brand-title {
+  font-weight: 700;
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-subtitle {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.login-card {
+  background-color: var(--secondary-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.login-card .card-body {
+  padding: 2rem !important;
+}
+
+.custom-input {
+  background-color: var(--accent-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--primary-text) !important;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+  background-color: var(--accent-bg) !important;
+  border-color: var(--brand-primary) !important;
+  color: var(--primary-text) !important;
+  box-shadow: 0 0 0 0.2rem rgba(46, 160, 67, 0.25) !important;
+}
+
+.custom-input::placeholder {
+  color: var(--secondary-text);
+  opacity: 0.7;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--secondary-text) !important;
+  border: none !important;
+  background: none !important;
+  padding: 0.25rem 0.5rem;
+  z-index: 3;
+}
+
+.password-toggle:hover {
+  color: var(--brand-primary) !important;
+}
+
+.login-btn {
+  background: linear-gradient(135deg, var(--brand-primary), #2c974b) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46, 160, 67, 0.3) !important;
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.demo-credentials {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: var(--accent-bg);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-label i {
+  opacity: 0.8;
+}
+
+/* Alert customizations */
+.alert-danger {
+  background-color: rgba(218, 54, 51, 0.1) !important;
+  border-color: rgba(218, 54, 51, 0.2) !important;
+  color: #ff6b6b !important;
+  border-radius: 8px;
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+  .login-container {
+    padding: 1rem;
+  }
+  
+  .login-card .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .brand-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* Loading animation for the button */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.login-btn:disabled {
+  animation: pulse 1.5s infinite;
+}
+
+/* Focus indicators for accessibility */
+.custom-input:focus,
+.login-btn:focus,
+.password-toggle:focus {
+  outline: none;
+}
+
+/* Invalid input styles */
+.form-control.is-invalid {
+  border-color: var(--danger-color) !important;
+  background-color: var(--accent-bg) !important;
+}
+
+.invalid-feedback {
+  color: #ff6b6b !important;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
