@@ -1,51 +1,54 @@
 
-# BrightRoot Academy Platform
 
-An AI-powered **Learning Management System (LMS)** designed for BrightRoot Academy. The platform integrates **interactive frontend, secure backend, and intelligent AI services** to deliver a modern, personalized education experience.
+# 🌱 BrightRoot Academy Platform
+
+**BrightRoot Academy** is an **AI-powered learning platform** that blends an interactive frontend, a secure backend, and  AI-driven services to deliver a **modern, personalized education experience** for students and instructors.
 
 ---
 
 ## 🚀 Features
 
-* **Frontend (React + Tailwind)**:
+### 🎨 Frontend (React + TailwindCSS)
 
-  * Responsive, dark mode UI
-  * Student & instructor dashboards
-  * Course browsing 
+* Fully responsive, dark-mode enabled interface
+* Dynamic student and instructor dashboards
+* Seamless course discovery and signup flow
 
-* **Backend (Django REST API)**:
+### ⚙️ Backend (Django REST Framework)
 
-  * Authentication & user roles (students/instructors/admins)
-  * Course, enrollment & progress management
-  * Secure API endpoints
+* Secure authentication and user role management (Admin / Instructor / Student)
+* Course, enrollment, and progress tracking APIs
+* RESTful endpoints with JWT authentication
 
-* **AI Layer (LangChain + Groq)**:
+### 🤖 AI Layer
 
-  * RAG-powered chatbot for course Q\&A
-  * Personalized learning recommendations
-  * Vector database integration for knowledge retrieval
-
----
-
-## 🛠 Tech Stack
-
-* **Frontend**: React, TailwindCSS, Vite
-* **Backend**: Django REST Framework, PostgreSQL
-* **AI/LLM**: LangChain, Groq, ChromaDB (vector DB)
-* **Infra/DevOps**: Docker, GitHub Actions (CI/CD), Render/Heroku
+* **RAG-powered chatbot** for course-specific Q&A
+* **Personalized learning recommendations** using embeddings
+* **Vector database (pgvector / Supabase)** for intelligent retrieval
 
 ---
 
-## ⚙️ Installation
+## 🧩 Tech Stack
 
-1. **Clone repo**
+| Layer              | Technologies                                  |
+| :----------------- | :-------------------------------------------- |
+| **Frontend**       | React, TailwindCSS, Vite                      |
+| **Backend**        | Django REST Framework, PostgreSQL             |
+| **AI / LLM**       | OpenAI API, RAG, pgvector (Supabase)          |
+| **Infra / DevOps** | Docker, Render/Heroku, GitHub Actions (CI/CD) |
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/your-username/brightroot-academy.git
+git clone https://github.com/Miftahudin7/brightroot-academy.git
 cd brightroot-academy
 ```
 
-2. **Setup Backend**
+### 2️⃣ Backend Setup
 
 ```bash
 cd backend
@@ -54,7 +57,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-3. **Setup Frontend**
+### 3️⃣ Frontend Setup
 
 ```bash
 cd frontend
@@ -67,49 +70,50 @@ npm run dev
 ## 📂 Project Structure
 
 ```
-brightroot/
-├── backend/
+brightroot-academy/
+│
+├── backend/                # Django REST API
 │   ├── manage.py
-│   ├── brightroot/                # settings, urls, wsgi/asgi
-│   ├── api/                       # DRF viewsets, serializers, routers
-│   │   ├── auth/                  # register/login endpoints
-│   │   ├── files/                 # upload/list/download endpoints
-│   │   ├── ai/                    # summarize/quiz endpoints (Gemini)
-│   │   └── common/                # utils, pagination, permissions
-│   ├── core/                      # Django models (User, Streak, AI logs, etc.)
-│   └── requirements.txt
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   │   ├── auth/              # Login/Register (Context API)
-    │   │   ├── pages/             # Dashboard, Uploads, AI tools
-    │   │   └── ui/                # Reusable UI
-    │   ├── services/              # axios clients
-    │   ├── context/               # Auth + Theme context
-    │   ├── styles/                # Dark theme tokens
-    │   └── main.tsx
-    └── Read.me
-
-
+│   ├── requirements.txt
+│   ├── apps/
+│   └── ...
+│
+├── frontend/               # React + Vite frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── services/
+│   │   └── styles/
+│   ├── App.jsx
+│   ├── index.html
+│   └── vite.config.js
+│
+└── README.md
 ```
 
 ---
 
 ## 🎯 Roadmap
 
-* ✅ MVP with core LMS features
-* ✅ AI-powered Q\&A chatbot
-* 🔄 Multi-agent workflows (tutoring, grading, feedback)
-* 🔄 Deployment to cloud (Docker + Render)
+* 🧠 Expand AI tutoring workflows (multi-agent feedback + grading)
+* ☁️ Full Docker deployment to Render / AWS
+* 📊 Instructor analytics dashboard
+* 🧩 Real-time chat and video learning features
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please fork the repo, create a branch, and submit a PR.
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a new branch (`feature/your-feature-name`)
+3. Commit your changes and open a pull request
 
 ---
 
 ## 📜 License
 
-MIT License © 2025 BrightRoot Academy
+**MIT License** © 2025 [BrightRoot Academy](https://github.com/Miftahudin7)
